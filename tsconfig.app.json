@@ -1,10 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "outDir": "./out-tsc/app",
     "removeComments": true,
-    "strict": true,
-    "types": []
+    "strict": true
   },
   "files": [
     "src/main.ts",
