@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -8,6 +7,7 @@
     "resolveJsonModule": true,
     "strict": true
   },
+  "extends": "./tsconfig.json",
   "files": [
     "src/main.ts",
     "src/polyfills.ts"

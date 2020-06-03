@@ -1,4 +1,8 @@
 {
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
@@ -15,9 +19,5 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "target": "es2015",
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
   }
 }
