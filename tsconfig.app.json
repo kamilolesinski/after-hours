@@ -2,8 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./out-tsc/app",
     "removeComments": true,
+    "resolveJsonModule": true,
     "strict": true
   },
   "files": [
