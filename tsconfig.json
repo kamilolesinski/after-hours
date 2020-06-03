@@ -11,8 +11,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "lib": [
-      "es2018",
-      "dom"
+      "dom",
+      "es2018"
     ],
     "module": "esnext",
     "moduleResolution": "node",
