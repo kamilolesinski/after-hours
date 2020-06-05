@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
-import { CanActivate, Router } from '@angular/router'
+import { CanActivate, Router, CanLoad } from '@angular/router'
 
 @Injectable({
   providedIn: 'root'
 })
-export class SignedInGuard implements CanActivate {
+export class SignedInGuard implements CanLoad {
   constructor(private router: Router) { }
 
-  canActivate(): boolean {
+  canLoad(): boolean {
     this.router.navigate(['/sign-in'])
     return false
   }
