@@ -1,7 +1,7 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
   <app-username formControlName="username"></app-username>
-  <app-password formControlName="password"></app-password>
-  <app-password formControlName="passwordRepeated"></app-password>
+  <app-password formControlName="password" [label]="'Password'"></app-password>
+  <app-password formControlName="passwordRepeated" [label]="'Repeat password'"></app-password>
   <button type="submit">
     Sign up
   </button>

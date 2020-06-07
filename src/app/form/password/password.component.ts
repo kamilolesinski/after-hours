@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core'
+import { Component, forwardRef, Input } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
@@ -12,6 +12,8 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
   templateUrl: './password.component.html'
 })
 export class PasswordComponent implements ControlValueAccessor {
+  @Input() readonly label = 'Password';
+  
   password = new FormControl()
 
   registerOnChange(fn: any): void {

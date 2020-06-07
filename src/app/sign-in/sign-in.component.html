@@ -1,6 +1,6 @@
 <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
   <app-username formControlName="username"></app-username>
-  <app-password formControlName="password"></app-password>
+  <app-password formControlName="password" [label]="'Password'"></app-password>
   <button type="submit">
     Sign in
   </button>
