@@ -1,1 +1,8 @@
-<p>sign-up works!</p>
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <app-username formControlName="username"></app-username>
+  <app-password formControlName="password"></app-password>
+  <app-password formControlName="passwordRepeated"></app-password>
+  <button type="submit">
+    Sign up
+  </button>
+</form>

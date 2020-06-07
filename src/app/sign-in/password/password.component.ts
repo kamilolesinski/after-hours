@@ -1,23 +1,18 @@
-import { Component, OnInit, forwardRef } from '@angular/core'
+import { Component, forwardRef } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
-  selector: 'app-password',
-  templateUrl: './password.component.html',
-  styleUrls: ['./password.component.scss'],
   providers: [{
     multi: true,
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PasswordComponent)
-  }]
+  }],
+  selector: 'app-password',
+  styleUrls: ['./password.component.scss'],
+  templateUrl: './password.component.html'
 })
-export class PasswordComponent implements ControlValueAccessor, OnInit {
+export class PasswordComponent implements ControlValueAccessor {
   password = new FormControl()
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   registerOnChange(fn: any): void {
     this.password.valueChanges.subscribe(fn)

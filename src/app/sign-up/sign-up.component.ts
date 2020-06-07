@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
 
 @Component({
   selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.scss'],
+  templateUrl: './sign-up.component.html'
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
+  signUpForm: FormGroup
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) {
+    this.signUpForm = this.formBuilder.group({
+      password: [''],
+      passwordRepeated: [''],
+      username: ['']
+    })
+   }
 
-  ngOnInit(): void {
+  onSubmit(): void {
+    console.log('Submitting sign up form ...')
   }
-
 }

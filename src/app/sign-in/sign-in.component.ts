@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
+  templateUrl: './sign-in.component.html'
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
   signInForm: FormGroup
 
   constructor(private formBuilder: FormBuilder) { 
@@ -16,10 +16,7 @@ export class SignInComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
   onSubmit(): void {
-    console.log('Submit ...')
+    console.log('Submitting sign in form ...')
   }
 }

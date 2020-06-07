@@ -6,12 +6,17 @@ import { components, SignInRoutingModule } from './sign-in-routing.module'
 import { PasswordComponent } from './password/password.component';
 import { UsernameComponent } from './username/username.component';
 
+const exports = [
+  PasswordComponent,
+  UsernameComponent
+]
+
 @NgModule({
   declarations: [
-    PasswordComponent,
-    UsernameComponent,
     ...components,
+    ...exports
   ],
+  exports: exports,
   imports: [
     CommonModule,
     ReactiveFormsModule,
