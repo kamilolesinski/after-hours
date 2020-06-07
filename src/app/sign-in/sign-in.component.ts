@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
 
-import { FormInterface } from '../interfaces/form.interface';
+import { FormInterface } from '../interfaces/form.interface'
 
 @Component({
   selector: 'app-sign-in',
