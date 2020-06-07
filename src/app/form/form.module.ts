@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { PasswordComponent } from './password/password.component'
+import { SubmitComponent } from './submit/submit.component'
 import { UsernameComponent } from './username/username.component'
 
 const exports = [
   PasswordComponent,
+  SubmitComponent,
   UsernameComponent
 ]
 
