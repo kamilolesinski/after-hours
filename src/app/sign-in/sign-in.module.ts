@@ -3,22 +3,13 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { components, SignInRoutingModule } from './sign-in-routing.module'
-import { PasswordComponent } from './password/password.component';
-import { UsernameComponent } from './username/username.component';
-
-const exports = [
-  PasswordComponent,
-  UsernameComponent
-]
+import { FormModule } from '../form/form.module';
 
 @NgModule({
-  declarations: [
-    ...components,
-    ...exports
-  ],
-  exports: exports,
+  declarations: components,
   imports: [
     CommonModule,
+    FormModule,
     ReactiveFormsModule,
     SignInRoutingModule
   ]

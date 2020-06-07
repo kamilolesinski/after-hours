@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
 
 import { components, SignUpRoutingModule } from './sign-up-routing.module'
-import { SignInModule } from '../sign-in/sign-in.module'
+import { FormModule } from '../form/form.module'
 
 @NgModule({
   declarations: components,
   imports: [
     CommonModule,
+    FormModule,
     ReactiveFormsModule,
-    SignUpRoutingModule, // fix it
-    SignInModule
+    SignUpRoutingModule
   ]
 })
 export class SignUpModule { }
