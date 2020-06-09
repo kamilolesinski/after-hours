@@ -1,7 +1,7 @@
 <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
   <app-username formControlName="username"></app-username>
   <app-password formControlName="password" [label]="'Password'"></app-password>
-  <app-submit [content]="'Sign in'"></app-submit>
+  <app-submit [content]="'Sign in'" [status]="signInForm.status"></app-submit>
 </form>
 <a routerLink="/sign-up">
   Sign up

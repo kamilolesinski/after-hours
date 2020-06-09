@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SubmitComponent {
   @Input() readonly content = 'Sign in'
+  @Input() readonly status = 'INVALID'
 }
