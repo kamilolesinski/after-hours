@@ -5,7 +5,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
   providers: [{
     multi: true,
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => UsernameComponent)
+    useExisting: forwardRef((): typeof UsernameComponent => UsernameComponent)
   }],
   selector: 'app-username',
   styleUrls: ['./username.component.scss'],

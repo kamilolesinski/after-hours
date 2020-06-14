@@ -5,7 +5,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
   providers: [{
     multi: true,
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => PasswordComponent)
+    useExisting: forwardRef((): typeof PasswordComponent => PasswordComponent)
   }],
   selector: 'app-password',
   styleUrls: ['./password.component.scss'],
