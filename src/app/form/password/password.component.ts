@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core'
+import { Component, ElementRef, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators, ValidationErrors } from '@angular/forms'
 
 import { Subject } from 'rxjs'
@@ -18,9 +18,14 @@ import { createProvider } from '../../utils/utils'
 export class PasswordComponent implements ControlValueAccessor, OnDestroy, Validator {
   @Input() readonly label = 'Password'
 
+  @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
+
   password = new FormControl('', Validators.required)
+  passwordHidden = true
 
   private readonly finish = new Subject();
+
+  constructor(private renderer: Renderer2) { }
 
   ngOnDestroy(): void {
     this.finish.next()
@@ -34,6 +39,13 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   registerOnTouched(): void { }
+
+  showPassword(): void {
+    if (this.input) {
+      this.renderer.setAttribute(this.input.nativeElement, 'type', this.passwordHidden ? 'text' : 'password')
+      this.passwordHidden = !this.passwordHidden
+    }
+  }
 
   validate(): ValidationErrors | null {
     return this.password.valid ? null : { valid: false }

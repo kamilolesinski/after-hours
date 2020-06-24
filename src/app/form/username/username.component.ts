@@ -46,6 +46,6 @@ export class UsernameComponent implements ControlValueAccessor, OnDestroy, Valid
 
   private resetForm(): void {
     this.username.reset()
-    this.input && this.input.nativeElement.focus()
+    this.input?.nativeElement.focus()
   }
 }
