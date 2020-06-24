@@ -1,10 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core'
+import { Component, Input, OnDestroy } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators, ValidationErrors } from '@angular/forms'
 
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 import { createProvider } from '../../utils/utils'
+
+type InputType = 'password' | 'text'
 
 @Component({
   providers: [
@@ -18,25 +20,23 @@ import { createProvider } from '../../utils/utils'
 export class PasswordComponent implements ControlValueAccessor, OnDestroy, Validator {
   @Input() readonly label = 'Password'
 
-  @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
-
+  buttonLabel = 'Show'
+  inputType: InputType = 'password'
   password = new FormControl('', Validators.required)
-  passwordHidden = true
 
-  private readonly finish = new Subject();
-
-  constructor(private renderer: Renderer2) { }
+  private readonly finish = new Subject()
 
   ngOnDestroy(): void {
     this.finish.next()
     this.finish.complete()
   }
 
-  changePasswordState(): void {
-    if (this.input) {
-      this.renderer.setAttribute(this.input.nativeElement, 'type', this.passwordHidden ? 'text' : 'password')
-      this.passwordHidden = !this.passwordHidden
+  changeInputType(): void {
+    if (this.inputType === 'password') {
+      this.setInputType('text')
+      return;
     }
+    this.setInputType('password')
   }
 
   registerOnChange(fn: any): void {
@@ -54,5 +54,10 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   writeValue(value: any): void {
     this.password.reset()
     this.password.setValue(value, { emitEvent: false })
+  }
+
+  private setInputType(type: InputType): void {
+    this.inputType = type
+    this.buttonLabel = (type === 'password') ? 'Show' : 'Hide'
   }
 }
