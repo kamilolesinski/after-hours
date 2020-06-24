@@ -5,8 +5,8 @@ import { createProvider } from '../../utils/utils'
 
 @Component({
   providers: [
-    createProvider<ControlValueAccessor>(UsernameComponent, NG_VALUE_ACCESSOR),
-    createProvider<Validator>(UsernameComponent, NG_VALIDATORS)
+    createProvider(UsernameComponent, NG_VALIDATORS),
+    createProvider(UsernameComponent, NG_VALUE_ACCESSOR)
   ],
   selector: 'app-username',
   styleUrls: ['./username.component.scss'],

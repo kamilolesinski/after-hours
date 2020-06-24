@@ -13,8 +13,8 @@ export class SignInComponent implements FormInterface {
 
   constructor(private formBuilder: FormBuilder) { 
     this.signInForm = this.formBuilder.group({
-      password: [],
-      username: []
+      password: [''],
+      username: ['']
     })
   }
 
