@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 
 import { FormInterface } from '../interfaces/form.interface'
 
@@ -13,8 +13,8 @@ export class SignInComponent implements FormInterface {
 
   constructor(private formBuilder: FormBuilder) { 
     this.signInForm = this.formBuilder.group({
-      password: ['', Validators.required],
-      username: ['', Validators.required]
+      password: [],
+      username: []
     })
   }
 
