@@ -1,5 +1,5 @@
 <label>
   Username:
-  <input type="text" [formControl]="username">
+  <input type="text" [formControl]="username" autofocus #input>
 </label>
 <app-validation-message [fControl]="username" [fieldName]="'Username'"></app-validation-message>

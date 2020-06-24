@@ -40,6 +40,7 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   writeValue(value: any): void {
+    this.password.reset()
     this.password.setValue(value, { emitEvent: false })
   }
 }

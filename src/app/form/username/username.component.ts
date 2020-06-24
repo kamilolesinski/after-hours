@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core'
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators, ValidationErrors } from '@angular/forms'
 
 import { Subject } from 'rxjs'
@@ -16,6 +16,8 @@ import { createProvider } from '../../utils/utils'
   templateUrl: './username.component.html'
 })
 export class UsernameComponent implements ControlValueAccessor, OnDestroy, Validator {
+  @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
+
   username = new FormControl('', Validators.required)
 
   private readonly finish = new Subject()
@@ -38,6 +40,12 @@ export class UsernameComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   writeValue(value: any): void {
+    this.resetForm()
     this.username.setValue(value, { emitEvent: false })
+  }
+
+  private resetForm(): void {
+    this.username.reset()
+    this.input && this.input.nativeElement.focus()
   }
 }

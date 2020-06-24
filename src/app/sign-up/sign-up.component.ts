@@ -19,6 +19,8 @@ export class SignUpComponent implements FormInterface {
     })
   }
 
+  onError(): void { }
+
   onSubmit(): void {
     console.log('Submitting sign up form ...')
   }

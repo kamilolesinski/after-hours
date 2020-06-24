@@ -1,3 +1,6 @@
+<span *ngIf="signInFailed">
+  Username or password are incorrect.
+</span>
 <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
   <app-username formControlName="username"></app-username>
   <app-password formControlName="password" [label]="'Password'"></app-password>
