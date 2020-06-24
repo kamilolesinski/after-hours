@@ -5,8 +5,8 @@ import { createProvider } from '../../utils/utils'
 
 @Component({
   providers: [
-    createProvider<Validator>(UsernameComponent, NG_VALIDATORS),
-    createProvider<ControlValueAccessor>(UsernameComponent, NG_VALUE_ACCESSOR)
+    createProvider<ControlValueAccessor>(UsernameComponent, NG_VALUE_ACCESSOR),
+    createProvider<Validator>(UsernameComponent, NG_VALIDATORS)
   ],
   selector: 'app-username',
   styleUrls: ['./username.component.scss'],
@@ -22,7 +22,7 @@ export class UsernameComponent implements ControlValueAccessor, Validator {
   registerOnTouched(): void { }
 
   validate(): ValidationErrors | null {
-    return this.username.valid ? null : { message: 'Username must be filled' }
+    return this.username.valid ? null : { valid: false }
   }
 
   writeValue(value: any): void {

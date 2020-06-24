@@ -5,15 +5,15 @@ import { createProvider } from '../../utils/utils'
 
 @Component({
   providers: [
-    createProvider<Validator>(PasswordComponent, NG_VALIDATORS),
-    createProvider<ControlValueAccessor>(PasswordComponent, NG_VALUE_ACCESSOR)
+    createProvider<ControlValueAccessor>(PasswordComponent, NG_VALUE_ACCESSOR),
+    createProvider<Validator>(PasswordComponent, NG_VALIDATORS)
   ],
   selector: 'app-password',
   styleUrls: ['./password.component.scss'],
   templateUrl: './password.component.html'
 })
 export class PasswordComponent implements ControlValueAccessor, Validator {
-  @Input() readonly label = 'Password';
+  @Input() readonly label = 'Password'
 
   password = new FormControl('', Validators.required)
 
@@ -24,7 +24,7 @@ export class PasswordComponent implements ControlValueAccessor, Validator {
   registerOnTouched(): void { }
 
   validate(): ValidationErrors | null {
-    return this.password.valid ? null : { message: 'Password must be filled' }
+    return this.password.valid ? null : { valid: false }
   }
 
   writeValue(value: any): void {
