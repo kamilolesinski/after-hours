@@ -32,6 +32,13 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
     this.finish.complete()
   }
 
+  changePasswordState(): void {
+    if (this.input) {
+      this.renderer.setAttribute(this.input.nativeElement, 'type', this.passwordHidden ? 'text' : 'password')
+      this.passwordHidden = !this.passwordHidden
+    }
+  }
+
   registerOnChange(fn: any): void {
     this.password.valueChanges
       .pipe(takeUntil(this.finish))
@@ -39,13 +46,6 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   registerOnTouched(): void { }
-
-  showPassword(): void {
-    if (this.input) {
-      this.renderer.setAttribute(this.input.nativeElement, 'type', this.passwordHidden ? 'text' : 'password')
-      this.passwordHidden = !this.passwordHidden
-    }
-  }
 
   validate(): ValidationErrors | null {
     return this.password.valid ? null : { valid: false }
