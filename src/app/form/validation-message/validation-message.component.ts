@@ -7,6 +7,6 @@ import { FormControl } from '@angular/forms'
   templateUrl: './validation-message.component.html'
 })
 export class ValidationMessageComponent {
-  @Input() fControl: FormControl = new FormControl()
+  @Input() readonly fControl: FormControl = new FormControl()
   @Input() readonly fieldName = ''
 }
