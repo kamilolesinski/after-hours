@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnDestroy } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators, ValidationErrors } from '@angular/forms'
+
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 import { createProvider } from '../../utils/utils'
 
@@ -12,13 +15,22 @@ import { createProvider } from '../../utils/utils'
   styleUrls: ['./password.component.scss'],
   templateUrl: './password.component.html'
 })
-export class PasswordComponent implements ControlValueAccessor, Validator {
+export class PasswordComponent implements ControlValueAccessor, OnDestroy, Validator {
   @Input() readonly label = 'Password'
 
   password = new FormControl('', Validators.required)
 
+  private readonly finish = new Subject();
+
+  ngOnDestroy(): void {
+    this.finish.next()
+    this.finish.complete()
+  }
+
   registerOnChange(fn: any): void {
-    this.password.valueChanges.subscribe(fn)
+    this.password.valueChanges
+      .pipe(takeUntil(this.finish))
+      .subscribe(fn)
   }
 
   registerOnTouched(): void { }
