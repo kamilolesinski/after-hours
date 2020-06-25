@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router'
 
 import { Form } from '../interfaces/form.interface'
+import { links } from '../../config/routes'
 
 enum SignInError {
   email = 'auth/invalid-email',
@@ -24,6 +25,7 @@ interface SignInForm {
 export class SignInComponent implements Form {
   signInFailed = false
   readonly signInForm: FormGroup
+  readonly signUpLink = links.signUp
 
   constructor(
     private readonly fireAuth: AngularFireAuth,
@@ -38,7 +40,7 @@ export class SignInComponent implements Form {
     this.fireAuth
       .signInWithEmailAndPassword(formValues.email, formValues.password)
       .then((): void => {
-        this.router.navigate(['/main'])
+        this.router.navigate([links.main])
       })
       .catch((error): void => {
         this.signInFailed = [

@@ -10,6 +10,6 @@
   </label>
   <app-submit [content]="'Sign in'" [status]="signInForm.status"></app-submit>
 </form>
-<a routerLink="/sign-up">
+<a [routerLink]="[signUpLink]">
   Sign up
 </a>
