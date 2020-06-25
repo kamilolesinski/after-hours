@@ -23,19 +23,20 @@ interface SignInForm {
 })
 export class SignInComponent implements Form {
   signInFailed = false
-  signInForm: FormGroup
+  readonly signInForm: FormGroup
 
   constructor(
-    private fireAuth: AngularFireAuth,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private readonly fireAuth: AngularFireAuth,
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router
   ) {
     this.signInForm = this.formBuilder.group(this.signInFormInit())
   }
 
   onSubmit(): void {
     const formValues: SignInForm = this.signInForm.value
-    this.fireAuth.signInWithEmailAndPassword(formValues.email, formValues.password)
+    this.fireAuth
+      .signInWithEmailAndPassword(formValues.email, formValues.password)
       .then((): void => {
         this.router.navigate(['/main'])
       })

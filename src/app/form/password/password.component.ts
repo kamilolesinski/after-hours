@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy } from '@angular/core'
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators, ValidationErrors } from '@angular/forms'
 
 import { Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { map, takeUntil } from 'rxjs/operators'
 
 import { createProvider } from '../../utils/utils'
 
@@ -25,6 +25,7 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   readonly password = new FormControl('', Validators.required)
 
   private readonly finish = new Subject()
+  private readonly passwordMaxLength = 20
 
   ngOnDestroy(): void {
     this.finish.next()
@@ -50,7 +51,12 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
 
   registerOnChange(fn: any): void {
     this.password.valueChanges
-      .pipe(takeUntil(this.finish))
+      .pipe(
+        map((value: string): string => this.slice(value))
+      )
+      .pipe(
+        takeUntil(this.finish)
+      )
       .subscribe(fn)
   }
 
@@ -61,12 +67,16 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   writeValue(value: any): void {
-    this.password.reset()
+    this.password.reset('')
     this.password.setValue(value, { emitEvent: false })
   }
 
   private setInputType(type: InputType): void {
     this.inputType = type
     this.buttonLabel = (type === 'password') ? 'Show' : 'Hide'
+  }
+
+  private slice(p: string): string {
+    return (p.length <= this.passwordMaxLength) ? p : p.slice(0, this.passwordMaxLength)
   }
 }

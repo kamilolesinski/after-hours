@@ -45,7 +45,7 @@ export class EmailComponent implements ControlValueAccessor, OnDestroy, Validato
   }
 
   private resetForm(): void {
-    this.email.reset()
+    this.email.reset('')
     this.input?.nativeElement.focus()
   }
 }
