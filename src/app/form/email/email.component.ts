@@ -4,7 +4,7 @@ import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Va
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-import { createProvider } from '../../utils/utils'
+import { createProvider, emailValidator } from '../../utils'
 
 @Component({
   providers: [
@@ -18,7 +18,7 @@ import { createProvider } from '../../utils/utils'
 export class EmailComponent implements ControlValueAccessor, OnDestroy, Validator {
   @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
 
-  readonly email = new FormControl('', Validators.required)
+  readonly email = new FormControl('', [Validators.required, emailValidator()])
 
   private readonly finish = new Subject()
 

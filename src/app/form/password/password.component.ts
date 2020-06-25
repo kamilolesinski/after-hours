@@ -4,7 +4,7 @@ import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Va
 import { Subject } from 'rxjs'
 import { map, takeUntil } from 'rxjs/operators'
 
-import { createProvider } from '../../utils/utils'
+import { createProvider } from '../../utils'
 
 type InputType = 'password' | 'text'
 

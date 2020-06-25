@@ -1,3 +1,8 @@
 <div class="validation-message" *ngIf="fControl.dirty && fControl.invalid && fControl.touched">
-  {{ fieldName }} field must be filled.
+  <p *ngIf="fControl.errors?.required">
+    {{ fieldName }} field must be filled.
+  </p>
+  <p *ngIf="fControl.errors?.email">
+    Email address must contain "@" sign.
+  </p>
 </div>
