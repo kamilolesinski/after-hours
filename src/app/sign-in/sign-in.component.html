@@ -4,6 +4,10 @@
 <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
   <app-username formControlName="username"></app-username>
   <app-password formControlName="password" [label]="'Password'"></app-password>
+  <label>
+    Keep me signed in.
+    <input formControlName="keepSignedIn" type="checkbox">
+  </label>
   <app-submit [content]="'Sign in'" [status]="signInForm.status"></app-submit>
 </form>
 <a routerLink="/sign-up">

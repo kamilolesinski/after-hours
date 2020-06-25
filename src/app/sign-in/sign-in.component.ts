@@ -5,6 +5,12 @@ import { Observable, throwError } from 'rxjs'
 
 import { FormInterface } from '../interfaces/form.interface'
 
+interface SignInForm {
+  readonly keepSignedIn: boolean,
+  readonly password: '',
+  readonly username: ''
+}
+
 @Component({
   selector: 'app-sign-in',
   styleUrls: ['./sign-in.component.scss'],
@@ -15,18 +21,12 @@ export class SignInComponent implements FormInterface {
   signInForm: FormGroup
 
   constructor(private formBuilder: FormBuilder) {
-    this.signInForm = this.formBuilder.group({
-      password: [''],
-      username: ['']
-    })
+    this.signInForm = this.formBuilder.group(this.signInFormInit())
   }
 
   onError(): void {
     this.signInFailed = true
-    this.signInForm.reset({
-      password: '',
-      username: ''
-    })
+    this.signInForm.reset(this.signInFormInit())
   }
 
   onSubmit(): void {
@@ -37,5 +37,13 @@ export class SignInComponent implements FormInterface {
 
   private fakeHTTPCall(): Observable<never> {
     return throwError('')
+  }
+
+  private signInFormInit(): SignInForm {
+    return {
+      keepSignedIn: false,
+      password: '',
+      username: ''
+    }
   }
 }
