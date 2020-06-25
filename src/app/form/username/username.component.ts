@@ -18,7 +18,7 @@ import { createProvider } from '../../utils/utils'
 export class UsernameComponent implements ControlValueAccessor, OnDestroy, Validator {
   @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
 
-  username = new FormControl('', Validators.required)
+  readonly username = new FormControl('', Validators.required)
 
   private readonly finish = new Subject()
 

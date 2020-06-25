@@ -22,7 +22,7 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
 
   buttonLabel = 'Show'
   inputType: InputType = 'password'
-  password = new FormControl('', Validators.required)
+  readonly password = new FormControl('', Validators.required)
 
   private readonly finish = new Subject()
 
@@ -34,9 +34,18 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   changeInputType(): void {
     if (this.inputType === 'password') {
       this.setInputType('text')
-      return;
+      return
     }
     this.setInputType('password')
+  }
+
+  checkCapsLock(event: KeyboardEvent | MouseEvent): void {
+    const capsLockState = event.getModifierState('CapsLock')
+    if (capsLockState) {
+      console.log('CapsLock is on ...')
+    } else if (capsLockState === false) {
+      console.log('CapsLock is off ...')
+    }
   }
 
   registerOnChange(fn: any): void {
