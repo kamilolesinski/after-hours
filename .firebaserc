@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "after-hours-1d5ee": {
+      "hosting": {
+        "after-hours": [
+          "after-hours-1d5ee"
+        ]
+      }
+    }
+  }
+}

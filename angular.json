@@ -121,8 +121,13 @@
               "devServerTarget": "after-hours:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "after-hours"
 }

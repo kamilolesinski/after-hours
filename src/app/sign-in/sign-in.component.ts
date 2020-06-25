@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs'
 
 import { FormInterface } from '../interfaces/form.interface'
 
-interface SignInForm {
+interface SignInFormInterface {
   readonly keepSignedIn: boolean,
   readonly password: '',
   readonly username: ''
@@ -39,7 +39,7 @@ export class SignInComponent implements FormInterface {
     return throwError('')
   }
 
-  private signInFormInit(): SignInForm {
+  private signInFormInit(): SignInFormInterface {
     return {
       keepSignedIn: false,
       password: '',
