@@ -1,14 +1,19 @@
 import { Component } from '@angular/core'
+import { AngularFireAuth } from '@angular/fire/auth'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router'
 
-import { Observable, throwError } from 'rxjs'
+import { Form } from '../interfaces/form.interface'
 
-import { FormInterface } from '../interfaces/form.interface'
+enum SignInError {
+  email = 'auth/invalid-email',
+  password = 'auth/wrong-password'
+}
 
-interface SignInFormInterface {
+interface SignInForm {
+  readonly email: string,
   readonly keepSignedIn: boolean,
-  readonly password: '',
-  readonly username: ''
+  readonly password: string
 }
 
 @Component({
@@ -16,34 +21,38 @@ interface SignInFormInterface {
   styleUrls: ['./sign-in.component.scss'],
   templateUrl: './sign-in.component.html'
 })
-export class SignInComponent implements FormInterface {
+export class SignInComponent implements Form {
   signInFailed = false
   signInForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private fireAuth: AngularFireAuth,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {
     this.signInForm = this.formBuilder.group(this.signInFormInit())
   }
 
-  onError(): void {
-    this.signInFailed = true
-    this.signInForm.reset(this.signInFormInit())
-  }
-
   onSubmit(): void {
-    this.fakeHTTPCall().subscribe({
-      error: (): void => this.onError()
-    })
+    const formValues: SignInForm = this.signInForm.value
+    this.fireAuth.signInWithEmailAndPassword(formValues.email, formValues.password)
+      .then((): void => {
+        this.router.navigate(['/main'])
+      })
+      .catch((error): void => {
+        this.signInFailed = [
+          SignInError.email,
+          SignInError.password
+        ].includes(error?.code)
+        this.signInForm.reset(this.signInFormInit())
+      })
   }
 
-  private fakeHTTPCall(): Observable<never> {
-    return throwError('')
-  }
-
-  private signInFormInit(): SignInFormInterface {
+  private signInFormInit(): SignInForm {
     return {
+      email: '',
       keepSignedIn: false,
-      password: '',
-      username: ''
+      password: ''
     }
   }
 }

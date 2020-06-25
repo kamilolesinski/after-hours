@@ -4,13 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 import { PasswordComponent } from './password/password.component'
 import { SubmitComponent } from './submit/submit.component'
-import { UsernameComponent } from './username/username.component'
+import { EmailComponent } from './email/email.component'
 import { ValidationMessageComponent } from './validation-message/validation-message.component'
 
 const exports = [
   PasswordComponent,
   SubmitComponent,
-  UsernameComponent
+  EmailComponent
 ]
 
 @NgModule({

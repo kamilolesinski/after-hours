@@ -1,4 +1,3 @@
-export interface FormInterface {
-  onError(): void
+export interface Form {
   onSubmit(): void
 }

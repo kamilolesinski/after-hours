@@ -8,22 +8,22 @@ import { createProvider } from '../../utils/utils'
 
 @Component({
   providers: [
-    createProvider(UsernameComponent, NG_VALIDATORS),
-    createProvider(UsernameComponent, NG_VALUE_ACCESSOR)
+    createProvider(EmailComponent, NG_VALIDATORS),
+    createProvider(EmailComponent, NG_VALUE_ACCESSOR)
   ],
-  selector: 'app-username',
-  styleUrls: ['./username.component.scss'],
-  templateUrl: './username.component.html'
+  selector: 'app-email',
+  styleUrls: ['./email.component.scss'],
+  templateUrl: './email.component.html'
 })
-export class UsernameComponent implements ControlValueAccessor, OnDestroy, Validator {
+export class EmailComponent implements ControlValueAccessor, OnDestroy, Validator {
   @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
 
-  readonly username = new FormControl('', Validators.required)
+  readonly email = new FormControl('', Validators.required)
 
   private readonly finish = new Subject()
 
   registerOnChange(fn: any): void {
-    this.username.valueChanges
+    this.email.valueChanges
       .pipe(takeUntil(this.finish))
       .subscribe(fn)
   }
@@ -36,16 +36,16 @@ export class UsernameComponent implements ControlValueAccessor, OnDestroy, Valid
   registerOnTouched(): void { }
 
   validate(): ValidationErrors | null {
-    return this.username.valid ? null : { valid: false }
+    return this.email.valid ? null : { valid: false }
   }
 
   writeValue(value: any): void {
     this.resetForm()
-    this.username.setValue(value, { emitEvent: false })
+    this.email.setValue(value, { emitEvent: false })
   }
 
   private resetForm(): void {
-    this.username.reset()
+    this.email.reset()
     this.input?.nativeElement.focus()
   }
 }

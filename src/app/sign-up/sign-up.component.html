@@ -1,5 +1,5 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-  <app-username formControlName="username"></app-username>
+  <app-email formControlName="email"></app-email>
   <app-password formControlName="password" [label]="'Password'"></app-password>
   <app-password formControlName="passwordRepeated" [label]="'Repeat password'"></app-password>
   <app-submit [content]="'Sign up'"></app-submit>
