@@ -31,7 +31,7 @@ export class EmailComponent implements ControlValueAccessor, OnDestroy, Validato
 
   private readonly controlOptions: Readonly<AbstractControlOptions> = {
     updateOn: 'blur',
-    validators: [Validators.required, AppValidators.email()]
+    validators: [Validators.required, AppValidators.email]
   }
   private readonly finish = new Subject()
 

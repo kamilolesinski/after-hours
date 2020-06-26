@@ -1,4 +1,4 @@
-import { ValidationErrors, ValidatorFn } from '@angular/forms'
+import { AbstractControl, ValidationErrors } from '@angular/forms'
 
 interface MaxLengths {
   readonly domain: 189
@@ -6,28 +6,20 @@ interface MaxLengths {
 }
 
 export const AppValidators = (function appValidatorsFactory() {
-  const _atSignRegex = /@/g
-  const _maxLengths: MaxLengths = {
-    domain: 189,
-    user: 64
-  }
+  const email = _emailValidator
 
-  function email(): ValidatorFn {
-    return control => {
-      const email = control.value
-      const error: Readonly<ValidationErrors> = {
-        email: { value: email }
-      }
-      return _isEmail(email) ? null : error
-    }
-  }
+  const _atSignRegex = /@/g
 
   function _checkDomain(domain: string): boolean {
     return _checkLength(domain, 'domain') && _checkPeriod(domain)
   }
 
   function _checkLength(part: string, key: keyof MaxLengths): boolean {
-    return part.length <= _maxLengths[key]
+    const maxLengths: MaxLengths = {
+      domain: 189,
+      user: 64
+    }
+    return part.length <= maxLengths[key]
   }
 
   function _checkPeriod(domain: string): boolean {
@@ -39,6 +31,14 @@ export const AppValidators = (function appValidatorsFactory() {
       return false
     }
     return true
+  }
+
+  function _emailValidator(c: AbstractControl): ValidationErrors | null {
+    const email = c.value
+    const error: Readonly<ValidationErrors> = {
+      email: { value: email }
+    }
+    return _isEmail(email) ? null : error
   }
 
   function _hasOneAtSign(email: string): boolean {

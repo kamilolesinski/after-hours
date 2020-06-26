@@ -1,5 +1,13 @@
 import { Component, Input, OnDestroy } from '@angular/core'
-import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator, Validators, ValidationErrors } from '@angular/forms'
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  Validator,
+  Validators,
+  ValidationErrors
+} from '@angular/forms'
 
 import { Subject } from 'rxjs'
 import { map, takeUntil } from 'rxjs/operators'
@@ -33,11 +41,9 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   changeInputType(): void {
-    if (this.inputType === 'password') {
-      this.setInputType('text')
-      return
-    }
-    this.setInputType('password')
+    const isPassword = (this.inputType === 'password')
+    this.buttonLabel = isPassword ? 'Hide' : 'Show'
+    this.inputType = isPassword ? 'text' : 'password'
   }
 
   checkCapsLock(event: KeyboardEvent | MouseEvent): void {
@@ -69,11 +75,6 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   writeValue(value: any): void {
     this.password.reset('')
     this.password.setValue(value, { emitEvent: false })
-  }
-
-  private setInputType(type: InputType): void {
-    this.inputType = type
-    this.buttonLabel = (type === 'password') ? 'Show' : 'Hide'
   }
 
   private slice(p: string): string {
