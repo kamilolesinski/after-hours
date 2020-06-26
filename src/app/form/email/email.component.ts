@@ -35,7 +35,6 @@ export class EmailComponent implements ControlValueAccessor, OnDestroy, Validato
   }
   private readonly finish = new Subject()
 
-
   constructor() {
     this.email = new FormControl('', this.controlOptions)
   }
