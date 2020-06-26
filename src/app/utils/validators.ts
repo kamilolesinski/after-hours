@@ -1,13 +1,13 @@
 import { ValidationErrors, ValidatorFn } from '@angular/forms'
 
-interface Lengths {
+interface MaxLengths {
   readonly domain: 189
   readonly user: 64
 }
 
 export const AppValidators = (function appValidatorsFactory() {
   const _atSignRegex = /@/g
-  const _maxLengths: Lengths = {
+  const _maxLengths: MaxLengths = {
     domain: 189,
     user: 64
   }
@@ -26,7 +26,7 @@ export const AppValidators = (function appValidatorsFactory() {
     return _checkLength(domain, 'domain') && _checkPeriod(domain)
   }
 
-  function _checkLength(part: string, key: keyof Lengths): boolean {
+  function _checkLength(part: string, key: keyof MaxLengths): boolean {
     return part.length <= _maxLengths[key]
   }
 
