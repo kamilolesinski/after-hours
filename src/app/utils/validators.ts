@@ -6,8 +6,6 @@ interface MaxLengths {
 }
 
 export const AppValidators = (function appValidatorsFactory() {
-  const _atSign = /@/g
-
   function emailValidator(c: AbstractControl): ValidationErrors | null {
     const email = c.value
     const error: Readonly<ValidationErrors> = {
@@ -39,19 +37,27 @@ export const AppValidators = (function appValidatorsFactory() {
     return true
   }
 
-  function _hasOneAtSign(email: string): boolean {
-    const atSigns = email.match(_atSign)
-    return atSigns ? atSigns.length === 1 : false
+  function _checkUser(user: string): boolean {
+    return _checkLength(user, 'user') && _userRegExpTest(user)
   }
 
   function _isEmail(email: string): boolean {
-    if (!_hasOneAtSign(email)) {
-      return false
-    }
+    return _oneAtSignRegExpTest(email) ? _processEmail(email) : false
+  }
+
+  function _oneAtSignRegExpTest(email: string): boolean {
+    return /^[^@]*@[^@]*$/.test(email)
+  }
+
+  function _processEmail(email: string): boolean {
     return email
-      .split(_atSign)
-      .map((e, i) => (i === 0) ? _checkLength(e, 'user') : _checkDomain(e))
+      .split('@')
+      .map((e, i) => (i === 0) ? _checkUser(e) : _checkDomain(e))
       .reduce((a, b) => a && b)
+  }
+
+  function _userRegExpTest(user: string): boolean {
+    return /^[\w!#$%&'*+\-/=?^`{|}~]+(\.?[\w!#$%&'*+\-/=?^`{|}~])*$/.test(user)
   }
 
   return { email: emailValidator }
