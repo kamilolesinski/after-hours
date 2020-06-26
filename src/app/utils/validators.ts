@@ -6,7 +6,7 @@ interface MaxLengths {
 }
 
 export const AppValidators = (function appValidatorsFactory() {
-  const _atSignRegex = /@/g
+  const _atSign = /@/g
 
   function emailValidator(c: AbstractControl): ValidationErrors | null {
     const email = c.value
@@ -40,7 +40,7 @@ export const AppValidators = (function appValidatorsFactory() {
   }
 
   function _hasOneAtSign(email: string): boolean {
-    const atSigns = email.match(_atSignRegex)
+    const atSigns = email.match(_atSign)
     return atSigns ? atSigns.length === 1 : false
   }
 
@@ -49,7 +49,7 @@ export const AppValidators = (function appValidatorsFactory() {
       return false
     }
     return email
-      .split(_atSignRegex)
+      .split(_atSign)
       .map((e, i) => (i === 0) ? _checkLength(e, 'user') : _checkDomain(e))
       .reduce((a, b) => a && b)
   }
