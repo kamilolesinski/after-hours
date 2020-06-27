@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms'
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms'
 
 interface MaxLengths {
   readonly domain: 189
@@ -6,13 +6,9 @@ interface MaxLengths {
   readonly user: 64
 }
 
-export const AppValidators = (function appValidatorsFactory() {
+export const AppValidators = ((): { email: ValidatorFn } => {
   function emailValidator(c: AbstractControl): ValidationErrors | null {
-    const email = c.value
-    const error: Readonly<ValidationErrors> = {
-      email: { value: email }
-    }
-    return _isEmail(email) ? null : error
+    return _isEmail(c.value) ? null : { email: 'Email address is invalid' }
   }
 
   function _checkDomain(domain: string): boolean {
