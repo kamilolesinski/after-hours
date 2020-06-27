@@ -16,10 +16,7 @@ export const AppValidators = (function appValidatorsFactory() {
   }
 
   function _checkDomain(domain: string): boolean {
-    return domain
-      .split('.')
-      .map(e => _checkLength(e, 'label'))
-      .reduce((a, b) => a && b)
+    return _checkLength(domain, 'domain') && _proceedDomain(domain)
   }
 
   function _checkLength(part: string, key: keyof MaxLengths): boolean {
@@ -38,6 +35,13 @@ export const AppValidators = (function appValidatorsFactory() {
 
   function _isEmail(email: string): boolean {
     return _emailRegExpTest(email.toLowerCase()) && _proceedEmail(email)
+  }
+
+  function _proceedDomain(domain: string): boolean {
+    return domain
+      .split('.')
+      .map(e => _checkLength(e, 'label'))
+      .reduce((a, b) => a && b)
   }
 
   function _proceedEmail(email: string): boolean {
