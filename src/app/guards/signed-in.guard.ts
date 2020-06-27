@@ -11,17 +11,18 @@ export class SignedInGuard implements CanLoad {
   constructor(private fireAuth: AngularFireAuth, private router: Router) { }
 
   async canLoad(): Promise<boolean> {
-    return await this.fireAuth.currentUser
-      .then(user => {
-        if (user) {
-          console.log('Signing in ...')
-          return true;
-        } else {
-          console.log('Redirecting ...')
-          this.router.navigate([links.signIn])
-          return false;
-        }
-      })
-      .catch(() => false)
+    try {
+      const user = await this.fireAuth.currentUser
+      if (user) {
+        console.log('Signing in ...')
+        return true;
+      } else {
+        console.log('Redirecting ...')
+        this.router.navigate([links.signIn])
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
   }
 }
