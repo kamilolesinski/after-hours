@@ -17,10 +17,10 @@ export class AppValidators {
   /**
    * Email validation based on RFC 3696 (https://tools.ietf.org/html/rfc3696#section-3)
    * with some exceptions treated as invalid:
-   * - use of quotes in local part,
-   * - use of non-ASCII characters in domain part (to fix in the future?).
+   * - use of quotes in a local part,
+   * - use of non-ASCII characters in a domain part (to fix in the future?).
    * 
-   * Top level domain isn't check against list of current TLDs published by IANA:
+   * Top level domain isn't checked against list of current TLDs published by IANA:
    * https://data.iana.org/TLD/tlds-alpha-by-domain.txt.
    * @param c Form control to validate.
    * @returns Validation error or `null` if email is valid.
