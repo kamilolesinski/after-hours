@@ -12,14 +12,14 @@ import {
 import { Subject } from 'rxjs'
 import { map, takeUntil } from 'rxjs/operators'
 
-import { createProvider } from '../../utils'
+import { AppProvider } from '../../utils'
 
 type InputType = 'password' | 'text'
 
 @Component({
   providers: [
-    createProvider(PasswordComponent, NG_VALIDATORS),
-    createProvider(PasswordComponent, NG_VALUE_ACCESSOR)
+    AppProvider.create(PasswordComponent, NG_VALIDATORS),
+    AppProvider.create(PasswordComponent, NG_VALUE_ACCESSOR)
   ],
   selector: 'app-password',
   styleUrls: ['./password.component.scss'],
@@ -30,10 +30,15 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
 
   buttonLabel = 'Show'
   inputType: InputType = 'password'
-  readonly password = new FormControl('', Validators.required)
+  password: FormControl
 
-  private readonly finish = new Subject()
+  private finish = new Subject()
+  private readonly initValue = ''
   private readonly passwordMaxLength = 20
+
+  constructor() {
+    this.password = new FormControl(this.initValue, Validators.required)
+  }
 
   ngOnDestroy(): void {
     this.finish.next()
@@ -47,10 +52,10 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   checkCapsLock(event: KeyboardEvent | MouseEvent): void {
-    const capsLockState = event.getModifierState('CapsLock')
-    if (capsLockState) {
+    const isCapsLock = event.getModifierState('CapsLock')
+    if (isCapsLock) {
       console.log('CapsLock is on ...')
-    } else if (capsLockState === false) {
+    } else if (isCapsLock === false) {
       console.log('CapsLock is off ...')
     }
   }
@@ -58,9 +63,7 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   registerOnChange(fn: any): void {
     this.password.valueChanges
       .pipe(
-        map((value: string): string => this.slice(value))
-      )
-      .pipe(
+        map(value => this.slice(value)),
         takeUntil(this.finish)
       )
       .subscribe(fn)
@@ -73,11 +76,14 @@ export class PasswordComponent implements ControlValueAccessor, OnDestroy, Valid
   }
 
   writeValue(value: any): void {
-    this.password.reset('')
+    this.password.reset(this.initValue)
     this.password.setValue(value, { emitEvent: false })
   }
 
-  private slice(p: string): string {
+  private slice(p: any): string {
+    if (typeof p !== 'string') {
+      return ''
+    }
     return (p.length <= this.passwordMaxLength) ? p : p.slice(0, this.passwordMaxLength)
   }
 }

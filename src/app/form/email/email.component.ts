@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core'
 import {
-  AbstractControlOptions,
   ControlValueAccessor,
   FormControl,
   NG_VALIDATORS,
@@ -13,30 +12,36 @@ import {
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-import { AppValidators, createProvider } from '../../utils'
+import { AppProvider } from '../../utils'
 
 @Component({
   providers: [
-    createProvider(EmailComponent, NG_VALIDATORS),
-    createProvider(EmailComponent, NG_VALUE_ACCESSOR)
+    AppProvider.create(EmailComponent, NG_VALIDATORS),
+    AppProvider.create(EmailComponent, NG_VALUE_ACCESSOR)
   ],
   selector: 'app-email',
   styleUrls: ['./email.component.scss'],
   templateUrl: './email.component.html'
 })
 export class EmailComponent implements ControlValueAccessor, OnDestroy, Validator {
-  @ViewChild('input') private readonly input: ElementRef<HTMLInputElement> | null = null
+  @ViewChild('input') private input: ElementRef<HTMLInputElement> | null = null
 
-  readonly email: FormControl
+  email: FormControl
 
-  private readonly controlOptions: Readonly<AbstractControlOptions> = {
-    updateOn: 'blur',
-    validators: [Validators.required, AppValidators.email]
-  }
-  private readonly finish = new Subject()
+  private finish = new Subject<void>()
+  private readonly initValue = ''
 
   constructor() {
-    this.email = new FormControl('', this.controlOptions)
+    this.email = new FormControl(
+      this.initValue,
+      {
+        updateOn: 'blur',
+        validators: [
+          Validators.email,
+          Validators.required
+        ]
+      }
+    )
   }
 
   registerOnChange(fn: any): void {
@@ -62,7 +67,7 @@ export class EmailComponent implements ControlValueAccessor, OnDestroy, Validato
   }
 
   private resetForm(): void {
-    this.email.reset('')
+    this.email.reset(this.initValue)
     this.input?.nativeElement.focus()
   }
 }
