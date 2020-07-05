@@ -2,26 +2,26 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 import { SignedInGuard } from './guards/signed-in.guard'
-import { links, paths } from '../config/routes'
+import { AppRoutes } from '../config/routes'
 
 const routes: Routes = [
   {
     canLoad: [SignedInGuard],
     loadChildren: () => import('./main/main.module').then(m => m.MainModule),
-    path: paths.main
+    path: AppRoutes.paths.main
   },
   {
     loadChildren: () => import('./sign-in/sign-in.module').then(m => m.SignInModule),
-    path: paths.signIn
+    path: AppRoutes.paths.signIn
   },
   {
     loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignUpModule),
-    path: paths.signUp
+    path: AppRoutes.paths.signUp
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: links.main
+    redirectTo: AppRoutes.links.main
   }
 ]
 

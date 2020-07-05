@@ -1,19 +1,11 @@
-import { forwardRef, InjectionToken, Provider } from '@angular/core';
-
-export function createProvider<T>(component: any, token: InjectionToken<T>): Provider {
-  return {
-    multi: true,
-    provide: token,
-    useExisting: forwardRef((): typeof component => component)
-  };
-}
+import { ExistingProvider, forwardRef, InjectionToken } from '@angular/core';
 
 export class AppProvider {
-  static create<T>(component: any, token: InjectionToken<T>): Provider {
+  static useExisting<T>(component: any, injectionToken: InjectionToken<T>): ExistingProvider {
     return {
       multi: true,
-      provide: token,
-      useExisting: forwardRef((): typeof component => component)
+      provide: injectionToken,
+      useExisting: forwardRef(() => component)
     };
   }
 }

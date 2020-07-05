@@ -18,8 +18,8 @@ type InputType = 'password' | 'text'
 
 @Component({
   providers: [
-    AppProvider.create(PasswordComponent, NG_VALIDATORS),
-    AppProvider.create(PasswordComponent, NG_VALUE_ACCESSOR)
+    AppProvider.useExisting(PasswordComponent, NG_VALIDATORS),
+    AppProvider.useExisting(PasswordComponent, NG_VALUE_ACCESSOR)
   ],
   selector: 'app-password',
   styleUrls: ['./password.component.scss'],

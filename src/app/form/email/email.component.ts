@@ -16,8 +16,8 @@ import { AppProvider } from '../../utils'
 
 @Component({
   providers: [
-    AppProvider.create(EmailComponent, NG_VALIDATORS),
-    AppProvider.create(EmailComponent, NG_VALUE_ACCESSOR)
+    AppProvider.useExisting(EmailComponent, NG_VALIDATORS),
+    AppProvider.useExisting(EmailComponent, NG_VALUE_ACCESSOR)
   ],
   selector: 'app-email',
   styleUrls: ['./email.component.scss'],
