@@ -12,7 +12,7 @@ import {
 import { Subject } from 'rxjs'
 import { map, takeUntil } from 'rxjs/operators'
 
-import { AppProvider } from '../../utils'
+import { AppProvider } from '../../../utils'
 
 type InputType = 'password' | 'text'
 

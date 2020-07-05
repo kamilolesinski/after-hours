@@ -6,15 +6,15 @@ import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-import { Form } from '../interfaces/form.interface'
-import { AppRoutes } from '../../config/routes'
+import { Form } from '../../interfaces/form.interface'
+import { AppRoutes } from '../../../config/routes'
 
 enum SignInError {
   email = 'auth/invalid-email',
   password = 'auth/wrong-password'
 }
 
-interface SignInForm {
+interface SignInFormValue {
   readonly email: string,
   readonly keepSignedIn: boolean,
   readonly password: string
@@ -31,7 +31,7 @@ export class SignInComponent implements Form, OnDestroy, OnInit {
   readonly signUpLink = AppRoutes.links.signUp
 
   private finish = new Subject<void>()
-  private initValue: SignInForm = {
+  private initValue: SignInFormValue = {
     email: '',
     keepSignedIn: false,
     password: ''
@@ -60,7 +60,7 @@ export class SignInComponent implements Form, OnDestroy, OnInit {
   }
 
   onSubmit(): void {
-    const value = this.signInForm.value as SignInForm
+    const value = this.signInForm.value as SignInFormValue
     this.fireAuth.signInWithEmailAndPassword(value.email, value.password)
   }
 

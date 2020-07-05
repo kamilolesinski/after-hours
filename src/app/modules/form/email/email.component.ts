@@ -12,7 +12,7 @@ import {
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-import { AppProvider } from '../../utils'
+import { AppProvider } from '../../../utils'
 
 @Component({
   providers: [
